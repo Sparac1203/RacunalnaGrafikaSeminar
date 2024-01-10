@@ -306,6 +306,14 @@ MonoBehaviour:
   world2Material: {fileID: 2100000, guid: 8b7dfc4ac0528b34fb8fb2f30fab7085, type: 2}
   ground1Material: {fileID: 2100000, guid: 86937624cf8a06e4eb8ad96f309f2cc7, type: 2}
   ground2Material: {fileID: 2100000, guid: b8bb720ac32f6054cbe777a9db5f8075, type: 2}
+  world1Sprites:
+  - {fileID: 21300000, guid: 4b4a57de377138e4e8369d8145550062, type: 3}
+  - {fileID: 21300000, guid: 47a1c54c1427e10458e1e21315a00666, type: 3}
+  - {fileID: 21300000, guid: 477a76ff29832b2499b9244de7070326, type: 3}
+  world2Sprites:
+  - {fileID: 21300000, guid: 0f8301b802034dc458d7804b3f36009b, type: 3}
+  - {fileID: 21300000, guid: 7fd4b5a09a961fa419e2f018f3b04a74, type: 3}
+  - {fileID: 21300000, guid: be4b00b7319975642b9a276f87eeab6b, type: 3}
 --- !u!4 &149568775
 Transform:
   m_ObjectHideFlags: 0
@@ -753,10 +761,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1256735116}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -274.6}
-  m_SizeDelta: {x: 104.1667, y: 104.1667}
+  m_AnchorMin: {x: 0.5, y: 0}
+  m_AnchorMax: {x: 0.5, y: 0}
+  m_AnchoredPosition: {x: 0, y: 265.40002}
+  m_SizeDelta: {x: 200, y: 194.68}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &834707747
 MonoBehaviour:

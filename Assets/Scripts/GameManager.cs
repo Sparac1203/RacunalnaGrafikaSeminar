@@ -22,6 +22,9 @@ public class GameManager : MonoBehaviour
     public Material ground1Material;
     public Material ground2Material;
 
+    public Sprite[] world1Sprites;
+    public Sprite[] world2Sprites;
+
     private void Awake()
     {
         if (Instance != null)
@@ -83,16 +86,19 @@ public class GameManager : MonoBehaviour
 
     public void ChangeWorld()
     {
-        currentWorld = (currentWorld == 1) ? 2 : 1; //changing the current world
+        currentWorld = (currentWorld == 1) ? 2 : 1; // changing the current world
+
         if (currentWorld == 1)
         {
             quadMeshRendererBackground.material = world1Material;
             quadMeshRendererGround.material = ground1Material;
+            player.SetBirdSprites(world1Sprites);
         }
         else if (currentWorld == 2)
         {
             quadMeshRendererBackground.material = world2Material;
             quadMeshRendererGround.material = ground2Material;
+            player.SetBirdSprites(world2Sprites);
         }
     }
 

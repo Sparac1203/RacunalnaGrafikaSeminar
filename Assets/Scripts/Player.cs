@@ -31,7 +31,8 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0)) {
+        if (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0))
+        {
             direction = Vector3.up * strength;
         }
 
@@ -49,22 +50,33 @@ public class Player : MonoBehaviour
     {
         spriteIndex++;
 
-        if (spriteIndex >= sprites.Length) {
+        if (spriteIndex >= sprites.Length)
+        {
             spriteIndex = 0;
         }
 
-        if (spriteIndex < sprites.Length && spriteIndex >= 0) {
+        if (spriteIndex < sprites.Length && spriteIndex >= 0)
+        {
             spriteRenderer.sprite = sprites[spriteIndex];
         }
     }
 
+    public void SetBirdSprites(Sprite[] newSprites)
+    {
+        sprites = newSprites;
+        spriteIndex = 0; // Reset sprite index when changing sprites
+        spriteRenderer.sprite = sprites[spriteIndex];
+    }
+
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.CompareTag("Obstacle")) {
+        if (other.gameObject.CompareTag("Obstacle"))
+        {
             GameManager.Instance.GameOver();
-        } else if (other.gameObject.CompareTag("Scoring")) {
+        }
+        else if (other.gameObject.CompareTag("Scoring"))
+        {
             GameManager.Instance.IncreaseScore();
         }
     }
-
 }
