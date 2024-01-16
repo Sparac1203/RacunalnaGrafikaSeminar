@@ -78,5 +78,13 @@ public class Player : MonoBehaviour
         {
             GameManager.Instance.IncreaseScore();
         }
+        else if (other.gameObject.CompareTag("PowerUp"))
+        {
+            GameManager.Instance.PowerUp();
+        }
+    }
+
+    public void SetGravity(float newGravity) {
+        gravity = newGravity;
     }
 }

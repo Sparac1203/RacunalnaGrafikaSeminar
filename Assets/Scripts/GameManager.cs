@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using System.Collections.Generic;
 
 public class GameManager : MonoBehaviour
 {
@@ -16,7 +17,10 @@ public class GameManager : MonoBehaviour
     private int score;
     public int Score => score;
 
-    private int currentWorld = 1; 
+    private List<ActivePowerUp> activePowerUps = new List<ActivePowerUp>();
+    private float powerUpDuration = 15f;
+
+    private int currentWorld = 1;
     public Material world1Material;
     public Material world2Material;
     public Material ground1Material;
@@ -82,7 +86,123 @@ public class GameManager : MonoBehaviour
         scoreText.text = score.ToString();
     }
 
+    public void PowerUp()
+    {
+        // List of available power-ups
+        string[] powerUpOptions = { "DoubleScore", "GravityChange", "ExtraLife" };
 
+        // Randomly select a power-up from the list
+        string selectedPowerUp = powerUpOptions[Random.Range(0, powerUpOptions.Length)];
+        Debug.Log("picked Power-Up: " + selectedPowerUp);
+
+        // Apply the chosen power-up
+        ApplyPowerUp(selectedPowerUp);
+
+        // Add the new power-up to the active power-ups list
+        activePowerUps.Add(new ActivePowerUp(selectedPowerUp, powerUpDuration));
+
+    }
+
+    private void Update()
+    {
+        // Update the timers for active power-ups
+        for (int i = activePowerUps.Count - 1; i >= 0; i--)
+        {
+            activePowerUps[i].UpdateTimer(Time.deltaTime);
+
+            // Check if the power-up duration has expired
+            if (activePowerUps[i].IsExpired)
+            {
+                // Disable or remove the effects of the power-up
+                DisablePowerUp(activePowerUps[i]);
+                activePowerUps.RemoveAt(i);
+            }
+        }
+    }
+
+    private void DisablePowerUp(ActivePowerUp activePowerUp)
+    {
+        string powerUpType = activePowerUp.PowerUpType;
+
+        switch (powerUpType)
+        {
+            case "DoubleScore":
+                break;
+
+            case "GravityChange":
+                player.SetGravity(-9.81f);
+                break;
+
+            case "ExtraLife":
+                // Example: Handle the end of the ExtraLife power-up
+                break;
+
+            default:
+                Debug.LogWarning("Unknown power-up type: " + powerUpType);
+                break;
+        }
+
+        // Update UI or perform other actions related to the end of the power-up
+        UpdatePowerUpEndUI(powerUpType);
+    }
+
+    private void ApplyPowerUp(string powerUpType)
+    {
+        switch (powerUpType)
+        {
+            case "DoubleScore":
+                score *= 2;
+                scoreText.text = score.ToString();
+                break;
+
+            case "GravityChange":
+                player.SetGravity(-12f);
+                break;
+
+            case "ExtraLife":
+                // Example: Handle the start of the ExtraLife power-up
+                break;
+
+
+            default:
+                Debug.LogWarning("Unknown power-up type: " + powerUpType);
+                break;
+        }
+
+        UpdatePowerUpStartUI(powerUpType);
+    }
+
+    private void UpdatePowerUpStartUI(string powerUpType)
+    {
+        // Example: Update UI to indicate the start of the active power-up
+        Debug.Log("Activated Power-Up: " + powerUpType);
+    }
+
+    private void UpdatePowerUpEndUI(string powerUpType)
+    {
+        // Example: Update UI to indicate the end of the active power-up
+        Debug.Log("Power-Up expired: " + powerUpType);
+    }
+
+    // Class to represent an active power-up with a timer
+    private class ActivePowerUp
+    {
+        public string PowerUpType { get; private set; }
+        public float Timer { get; private set; }
+
+        public bool IsExpired => Timer <= 0f;
+
+        public ActivePowerUp(string powerUpType, float duration)
+        {
+            PowerUpType = powerUpType;
+            Timer = duration;
+        }
+
+        public void UpdateTimer(float deltaTime)
+        {
+            Timer -= deltaTime;
+        }
+    }
 
     public void ChangeWorld()
     {
