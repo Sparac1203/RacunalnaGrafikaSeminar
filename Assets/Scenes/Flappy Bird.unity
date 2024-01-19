@@ -300,6 +300,8 @@ MonoBehaviour:
   playButton: {fileID: 892178073}
   chooseWorldButton: {fileID: 834707745}
   gameOver: {fileID: 298509898}
+  pipesPrefab: {fileID: 6053768794356161907, guid: c1db09ac3ccffc742bbc907d839e8f3a,
+    type: 3}
   quadMeshRendererBackground: {fileID: 1949728351}
   quadMeshRendererGround: {fileID: 55615829}
   world1Material: {fileID: 2100000, guid: c231a489ac80afe46985629f5ad46f4f, type: 2}

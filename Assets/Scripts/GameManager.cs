@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject playButton;
     [SerializeField] private GameObject chooseWorldButton;
     [SerializeField] private GameObject gameOver;
+
     [SerializeField] private MeshRenderer quadMeshRendererBackground;
     [SerializeField] private MeshRenderer quadMeshRendererGround;
 
@@ -160,9 +161,28 @@ public class GameManager : MonoBehaviour
                 break;
 
             case "ExtraLife":
-                // Example: Handle the start of the ExtraLife power-up
-                break;
+                // Find all existing Pipes in the scene
+                Pipes[] existingPipes = FindObjectsOfType<Pipes>();
 
+                foreach (Pipes pipes in existingPipes)
+                {
+                    Transform pipesTransform = pipes.transform;
+                    GameObject topPipe = pipesTransform.Find("Top Pipe").gameObject;
+                    GameObject bottomPipe = pipesTransform.Find("Bottom Pipe").gameObject;
+
+                    if (topPipe != null && bottomPipe != null)
+                    {
+                        topPipe.tag = "Untagged";
+                        bottomPipe.tag = "Untagged";
+
+                        pipesTransform.parent = transform;
+                    }
+                    else
+                    {
+                        Debug.LogError("Failed to access Top Pipe or Bottom Pipe");
+                    }
+                }
+                break;
 
             default:
                 Debug.LogWarning("Unknown power-up type: " + powerUpType);
