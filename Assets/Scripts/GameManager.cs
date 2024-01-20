@@ -12,6 +12,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject chooseWorldButton;
     [SerializeField] private GameObject gameOver;
 
+    [SerializeField] private Text activePowerUpsText; // Reference to the UI Text component
+
+
     [SerializeField] private MeshRenderer quadMeshRendererBackground;
     [SerializeField] private MeshRenderer quadMeshRendererGround;
 
@@ -49,6 +52,8 @@ public class GameManager : MonoBehaviour
     {
         score = 0;
         scoreText.text = score.ToString();
+        activePowerUps.Clear();
+
 
         playButton.SetActive(false);
         gameOver.SetActive(false);
@@ -119,6 +124,8 @@ public class GameManager : MonoBehaviour
                 activePowerUps.RemoveAt(i);
             }
         }
+        UpdateActivePowerUpsText();
+
     }
 
     private void DisablePowerUp(ActivePowerUp activePowerUp)
@@ -241,5 +248,19 @@ public class GameManager : MonoBehaviour
             player.SetBirdSprites(world2Sprites);
         }
     }
+    private void UpdateActivePowerUpsText()
+    {
+        // Update the UI text to display active power-ups
+        string activePowerUpsString = "Active Power-Ups:\n";
+
+        foreach (ActivePowerUp activePowerUp in activePowerUps)
+        {
+            activePowerUpsString += activePowerUp.PowerUpType + "\n";
+        }
+
+        // Set the updated string to the Text component
+        activePowerUpsText.text = activePowerUpsString;
+    }
 
 }
+
